@@ -6,6 +6,9 @@
     "eslint:recommended",
     "plugin:react/recommended"
   ],
+  "env": {
+    "browser": true
+  },
   "settings": {
     "react": {
       "version": "detect"
@@ -13,9 +16,11 @@
   },
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
-    "indent": ["error", 2],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"]
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "semi": ["error", "always"],
+
+    "react/prop-types": "off"
   }
 }
