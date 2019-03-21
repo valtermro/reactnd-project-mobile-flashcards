@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import * as colors from '../colors';
 
 const styles = StyleSheet.create({
@@ -30,10 +30,7 @@ function DeckListEntry(props) {
   const { deck, onPress } = props;
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={onPress}
-    >
+    <TouchableOpacity activeOpacity={0.6} onPress={onPress} style={styles.container}>
       <Text style={styles.title}>
         {deck.title}
       </Text>

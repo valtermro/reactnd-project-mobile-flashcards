@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, FlatList } from 'react-native';
 import { getAllDecks } from '../decks/store';
 import { getCardsByDeck } from '../cards/store';
-import DeckListEntry from './DeckListEntry';
+import DeckListEntry from '../decks/DeckListEntry';
 
 function mapStateToProps(state) {
   const decks = getAllDecks(state);
@@ -34,8 +34,7 @@ class DeckList extends React.Component {
   }
 
   openDeck = (deck) => {
-    // TODO
-    return deck;
+    this.props.navigation.navigate('Deck', { deck });
   }
 
   render = () => {
