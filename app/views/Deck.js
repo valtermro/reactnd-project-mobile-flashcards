@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import * as colors from '../colors';
+import { trimHeaderTitle } from '../lib/util';
 import ActionButton from '../components/ActionButton';
 
 const styles = StyleSheet.create({
@@ -27,18 +28,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 60,
   },
-  addCardButton: {
-    backgroundColor: colors.secondary,
-    marginTop: 10,
-  },
   startQuizButton: {
     backgroundColor: colors.primary,
+    marginBottom: 10,
+  },
+  addCardButton: {
+    backgroundColor: colors.secondary,
   },
 });
 
 class Deck extends React.Component {
+  static navigationOptions = (props) => {
+    return {
+      headerBackTitle: trimHeaderTitle(props.navigation.getParam('deck').title),
+    };
+  }
+
   startQuiz = () => {
-    // TODO
+    this.props.navigation.navigate('Quiz', {
+      deck: this.props.navigation.getParam('deck'),
+    });
   }
 
   addCard = () => {
@@ -46,7 +55,7 @@ class Deck extends React.Component {
   }
 
   render = () => {
-    const { deck } = this.props.navigation.state.params;
+    const deck = this.props.navigation.getParam('deck');
 
     return (
       <View style={styles.container}>

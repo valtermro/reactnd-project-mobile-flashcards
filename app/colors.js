@@ -1,7 +1,10 @@
+export const success = '#00b020';
+export const error = '#b00020';
 export const white = '#ffffff';
+export const dimmedWhite = '#cccccc';
 export const primary = '#6200ee';
 export const secondary = '#03dac6';
-// export const secondary = '#018786';
-export const defaultText = '#303030';
-export const lightText = '#606060';
-export const viewBackground = '#eee';
+export const secondaryDark = '#018786';
+export const textDefault = '#303030';
+export const textLight = '#606060';
+export const viewBackground = '#eeeeee';

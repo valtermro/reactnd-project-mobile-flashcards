@@ -8,6 +8,7 @@ import { receiveDecks } from './app/decks/store';
 
 import StatusBar from './app/components/StatusBar';
 import DeckView from './app/views/Deck';
+import QuizView from './app/views/Quiz';
 import NewDeckView from './app/views/NewDeck';
 import DeckListView from './app/views/DeckList';
 
@@ -48,6 +49,9 @@ const AppNavigator = createStackNavigator({
   },
   Deck: {
     screen: DeckView,
+  },
+  Quiz: {
+    screen: QuizView,
   },
 }, {
   headerBackTitleVisible: true,

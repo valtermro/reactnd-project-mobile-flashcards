@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   title: {
-    color: colors.defaultText,
+    color: colors.textDefault,
     fontSize: 20,
     padding: 5,
   },
   cardCount: {
-    color: colors.lightText,
+    color: colors.textLight,
     fontSize: 18,
     padding: 5,
   },
