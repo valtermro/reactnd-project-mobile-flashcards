@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#909090',
     borderRadius: 2,
-    width: 120,
-    paddingTop: 5,
     fontSize: 20,
-    paddingBottom: 5,
+    width: 140,
+    paddingTop: 8,
+    paddingBottom: 8,
   },
   text: {
     color: colors.white,

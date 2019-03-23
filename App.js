@@ -10,6 +10,7 @@ import StatusBar from './app/components/StatusBar';
 import DeckView from './app/views/Deck';
 import QuizView from './app/views/Quiz';
 import NewDeckView from './app/views/NewDeck';
+import NewCardView from './app/views/NewCard';
 import DeckListView from './app/views/DeckList';
 
 const HomeNavigator = createMaterialTopTabNavigator({
@@ -52,6 +53,9 @@ const AppNavigator = createStackNavigator({
   },
   Quiz: {
     screen: QuizView,
+  },
+  NewCard: {
+    screen: NewCardView,
   },
 }, {
   headerBackTitleVisible: true,

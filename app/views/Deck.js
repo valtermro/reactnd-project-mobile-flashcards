@@ -51,7 +51,7 @@ class Deck extends React.Component {
   }
 
   addCard = () => {
-    // TODO
+    this.props.navigation.navigate('NewCard');
   }
 
   render = () => {
