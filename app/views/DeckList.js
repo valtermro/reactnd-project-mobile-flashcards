@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import * as colors from '../colors';
 import { getAppState } from '../store';
 import { getAllDecks } from '../decks/store';
@@ -19,6 +19,10 @@ function mapStateToProps(state) {
 }
 
 const styles = StyleSheet.create({
+  loadingIndicator: {
+    color: colors.secondaryDark,
+    marginTop: 100,
+  },
   emptyContainer: {
     alignItems: 'center',
   },
@@ -56,10 +60,11 @@ class DeckList extends React.Component {
 
     if (loading) {
       return (
-        <View>
-          {/* TODO */}
-          <Text>Loading...</Text>
-        </View>
+        <ActivityIndicator
+          size='large'
+          style={styles.loadingIndicator}
+          color={styles.loadingIndicator.color}
+        />
       );
     }
 
