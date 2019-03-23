@@ -1,18 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, FlatList } from 'react-native';
+import { getAppState } from '../store';
 import { getAllDecks } from '../decks/store';
 import { getCardsByDeck } from '../cards/store';
 import DeckListEntry from '../decks/DeckListEntry';
 
 function mapStateToProps(state) {
-  const decks = getAllDecks(state);
-
   return {
-    // NOTE: this only works because all of the app's data is loaded together
-    loading: decks.length === 0,
-
-    decks: decks.map((deck) => ({
+    loading: !getAppState(state).hasData,
+    decks: getAllDecks(state).map((deck) => ({
       ...deck,
       cardCount: getCardsByDeck(state, deck.id).length,
     })),

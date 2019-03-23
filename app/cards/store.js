@@ -1,11 +1,3 @@
-export function receiveCards(cards) {
-  return {
-    type: 'RECEIVE_CARDS',
-    cards: cards,
-  };
-}
-
-
 export function reducer(state = {}, action) {
   switch (action.type) {
     case 'RECEIVE_CARDS': {
@@ -19,6 +11,14 @@ export function reducer(state = {}, action) {
       return state;
     }
   }
+}
+
+
+export function receiveCards(cards) {
+  return {
+    type: 'RECEIVE_CARDS',
+    cards: cards,
+  };
 }
 
 export function getAllCards(state) {

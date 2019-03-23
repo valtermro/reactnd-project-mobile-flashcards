@@ -1,10 +1,7 @@
 import React from 'react';
 import { createAppContainer, createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
-import { readAppState } from './app/lib/storage';
-import { createStore, Provider } from './app/store';
+import { Provider, createStore, loadAppState } from './app/store';
 import * as colors from './app/colors';
-import { receiveCards } from './app/cards/store';
-import { receiveDecks } from './app/decks/store';
 
 import StatusBar from './app/components/StatusBar';
 import DeckView from './app/views/Deck';
@@ -77,10 +74,7 @@ const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
   componentDidMount = async () => {
-    // TODO: create an action for this (?)
-    const data = await readAppState();
-    store.dispatch(receiveCards(data.cards));
-    store.dispatch(receiveDecks(data.decks));
+    store.dispatch(loadAppState());
   }
 
   render() {
