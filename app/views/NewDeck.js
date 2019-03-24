@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import * as colors from '../colors';
-import ActionButton from '../components/ActionButton';
+import { getDeckFormData, commitDeckForm, setDeckFormTitle, setDeckFormTitleError } from '../decks/store';
 import TextInput from '../components/TextInput';
+import ActionButton from '../components/ActionButton';
 import InputErrorMessage from '../components/InputErrorMessage';
-import { validateDeckTitle } from '../lib/validation';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,25 +26,13 @@ const styles = StyleSheet.create({
 });
 
 class NewDeck extends React.Component {
-  state = {
-    title: '',
-    titleError: '',
-  }
-
   onTitleChange = (title) => {
-    this.setState({ title: title, titleError: '' });
-  }
-
-  onSubmit = () => {
-    const { title } = this.state;
-
-    if (!validateDeckTitle(title)) {
-      return this.setState({ titleError: 'Invalid title' });
-    }
+    this.props.onTitleChange(title);
   }
 
   render = () => {
-    const { title, titleError } = this.state;
+    const { formData, onSubmit } = this.props;
+    const { title, titleError } = formData;
 
     return (
       <View style={styles.container}>
@@ -62,7 +51,7 @@ class NewDeck extends React.Component {
           )}
         </View>
 
-        <ActionButton style={styles.submitButton} onPress={this.onSubmit}>
+        <ActionButton style={styles.submitButton} onPress={onSubmit}>
           Create deck
         </ActionButton>
       </View>
@@ -70,4 +59,25 @@ class NewDeck extends React.Component {
   }
 }
 
-export default NewDeck;
+
+function mapStateToProps(state) {
+  return {
+    formData: getDeckFormData(state),
+  };
+}
+
+function mapDispatchToProps(dispatch, props) {
+  return {
+    onSubmit: () => {
+      if (dispatch(commitDeckForm())) {
+        props.navigation.navigate('DeckList');
+      }
+    },
+    onTitleChange: (title) => {
+      dispatch(setDeckFormTitleError(''));
+      dispatch(setDeckFormTitle(title));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDeck);
