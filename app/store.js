@@ -4,6 +4,7 @@ import logger from 'redux-logger';
 import { readAppState } from './lib/storage';
 import { reducer as cards, receiveCards } from './cards/store';
 import { reducer as decks, receiveDecks } from './decks/store';
+import { RECEIVE_APP_DATA } from './actions';
 
 export { Provider } from 'react-redux';
 
@@ -21,7 +22,7 @@ export function createStore() {
 
 function reducer(state = { hasData: false }, action) {
   switch (action.type) {
-    case 'RECEIVE_APP_DATA': {
+    case RECEIVE_APP_DATA: {
       return {
         hasData: true,
       };
@@ -38,7 +39,7 @@ export function loadAppState() {
     const data = await readAppState();
     dispatch(receiveDecks(data.decks));
     dispatch(receiveCards(data.cards));
-    dispatch({ type: 'RECEIVE_APP_DATA' });
+    dispatch({ type: RECEIVE_APP_DATA });
   };
 }
 

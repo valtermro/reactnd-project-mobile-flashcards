@@ -1,7 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import * as colors from '../colors';
-import { validateCardQuestion, validateCardAnswer } from '../lib/validation';
+import {
+  getCardFormData, commitCardForm,
+  setCardFormQuestion, setCardFormQuestionError,
+  setCardFormAnswer, setCardFormAnswerError,
+} from '../cards/store';
 import TextInput from '../components/TextInput';
 import ActionButton from '../components/ActionButton';
 import InputErrorMessage from '../components/InputErrorMessage';
@@ -26,38 +31,9 @@ const styles = StyleSheet.create({
 });
 
 class NewCard extends React.Component {
-  state = {
-    question: '',
-    answer: '',
-    questionError: '',
-    answerError: '',
-  }
-
-  onQuestionChange = (question) => {
-    this.setState({ question: question, questionError: '' });
-  }
-
-  onAnswerChange = (answer) => {
-    this.setState({ answer: answer, answerError: '' });
-  }
-
-  onSubmit = () => {
-    const { question, answer } = this.state;
-
-    const errors = {};
-    if (!validateCardQuestion(question)) {
-      errors.questionError = 'Invalid question';
-    }
-    if (!validateCardAnswer(answer)) {
-      errors.answerError = 'Invalid answer';
-    }
-    if (Object.keys(errors).length > 0) {
-      return this.setState(errors);
-    }
-  }
-
   render = () => {
-    const { question, answer, questionError, answerError } = this.state;
+    const { formData, onQuestionChange, onAnswerChange, onSubmit } = this.props;
+    const { question, answer, questionError, answerError } = formData;
 
     return (
       <View style={styles.container}>
@@ -67,7 +43,7 @@ class NewCard extends React.Component {
           </Text>
           <TextInput
             value={question}
-            onChangeText={this.onQuestionChange}
+            onChangeText={onQuestionChange}
             placeholder="e.g. What's the answer to the universe?"
           />
           {!!questionError && (
@@ -82,14 +58,14 @@ class NewCard extends React.Component {
           <TextInput
             placeholder='e.g. 42'
             value={answer}
-            onChangeText={this.onAnswerChange}
+            onChangeText={onAnswerChange}
           />
           {!!answerError && (
             <InputErrorMessage>{answerError}</InputErrorMessage>
           )}
         </View>
 
-        <ActionButton style={styles.submitButton} onPress={this.onSubmit}>
+        <ActionButton style={styles.submitButton} onPress={onSubmit}>
           Create card
         </ActionButton>
       </View>
@@ -97,4 +73,29 @@ class NewCard extends React.Component {
   }
 }
 
-export default NewCard;
+
+function mapStateToProps(state) {
+  return {
+    formData: getCardFormData(state),
+  };
+}
+
+function mapDispatchToProps(dispatch, props) {
+  return {
+    onQuestionChange: (question) => {
+      dispatch(setCardFormQuestion(question));
+      dispatch(setCardFormQuestionError(''));
+    },
+    onAnswerChange: (answer) => {
+      dispatch(setCardFormAnswer(answer));
+      dispatch(setCardFormAnswerError(''));
+    },
+    onSubmit: () => {
+      if (dispatch(commitCardForm(props.navigation.getParam('deck')))) {
+        props.navigation.goBack();
+      }
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewCard);
