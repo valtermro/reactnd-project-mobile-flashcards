@@ -4,17 +4,13 @@ import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-nativ
 import * as colors from '../colors';
 import { getAppState } from '../store';
 import { getAllDecks } from '../decks/store';
-import { getCardsByDeck } from '../cards/store';
 import DeckListEntry from '../decks/DeckListEntry';
 import ActionButton from '../components/ActionButton';
 
 function mapStateToProps(state) {
   return {
     loading: !getAppState(state).hasData,
-    decks: getAllDecks(state).map((deck) => ({
-      ...deck,
-      cardCount: getCardsByDeck(state, deck.id).length,
-    })),
+    decks: getAllDecks(state),
   };
 }
 

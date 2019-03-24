@@ -98,6 +98,7 @@ function createDeck(title) {
     deck: {
       id: uuid(),
       title: title,
+      cardCount: 0,
     },
   };
 }
