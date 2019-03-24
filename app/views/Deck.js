@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import * as colors from '../colors';
+import { getDeckById } from '../decks/store';
 import { trimHeaderTitle } from '../lib/util';
 import ActionButton from '../components/ActionButton';
 
@@ -40,22 +42,20 @@ const styles = StyleSheet.create({
 class Deck extends React.Component {
   static navigationOptions = (props) => {
     return {
-      headerBackTitle: trimHeaderTitle(props.navigation.getParam('deck').title),
+      headerBackTitle: trimHeaderTitle(props.navigation.getParam('backButtonTitle')),
     };
   }
 
   startQuiz = () => {
-    this.props.navigation.navigate('Quiz', {
-      deck: this.props.navigation.getParam('deck'),
-    });
+    this.props.navigation.navigate('Quiz', { deck: this.props.deck.id });
   }
 
   addCard = () => {
-    this.props.navigation.navigate('NewCard');
+    this.props.navigation.navigate('NewCard', { deck: this.props.deck.id });
   }
 
   render = () => {
-    const deck = this.props.navigation.getParam('deck');
+    const { deck } = this.props;
 
     return (
       <View style={styles.container}>
@@ -84,4 +84,11 @@ class Deck extends React.Component {
   }
 }
 
-export default Deck;
+
+function mapStateToProps(state, props) {
+  return {
+    deck: getDeckById(state, props.navigation.getParam('deck')),
+  };
+}
+
+export default connect(mapStateToProps)(Deck);

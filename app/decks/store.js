@@ -112,6 +112,10 @@ export function getDeckFormData(state) {
   return state.decks.form;
 }
 
+export function getDeckById(state, id) {
+  return state.decks.entities[id];
+}
+
 export function getDeckByTitle(state, title) {
   return getAllDecks(state).find(deck => deck.title.toLowerCase() === title.toLowerCase()) || null;
 }

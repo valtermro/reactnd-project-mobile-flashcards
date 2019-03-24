@@ -54,10 +54,8 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state, props) {
-  const deck = props.navigation.getParam('deck');
-
   return {
-    cards: getCardsByDeck(state, deck.id),
+    cards: getCardsByDeck(state, props.navigation.getParam('deck')),
   };
 }
 
