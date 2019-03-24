@@ -4,6 +4,7 @@ import { Provider, createStore, loadAppState } from './app/store';
 import * as colors from './app/colors';
 
 import StatusBar from './app/components/StatusBar';
+import NotificationDisplay from './app/components/NotificationDisplay';
 import DeckView from './app/views/Deck';
 import QuizView from './app/views/Quiz';
 import NewDeckView from './app/views/NewDeck';
@@ -83,6 +84,8 @@ export default class App extends React.Component {
         <StatusBar style={{ backgroundColor: colors.primary }} />
 
         <AppContainer />
+
+        <NotificationDisplay />
       </Provider>
     );
   }

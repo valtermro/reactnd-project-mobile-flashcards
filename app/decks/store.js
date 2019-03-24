@@ -1,13 +1,13 @@
 import uuid from 'uuid';
 import { combineReducers } from 'redux';
 import { validateDeckTitle } from '../lib/validation';
+import { normalizeEntities, persistAppState } from '../lib/util';
 import {
+  CREATE_CARD,
   CREATE_DECK,
   RECEIVE_DECKS,
   SET_DECK_FORM_TITLE,
   SET_DECK_FORM_TITLE_ERROR,
-
-  CREATE_CARD,
 } from '../actions';
 
 export const reducer = combineReducers({ form, entities });
@@ -46,7 +46,7 @@ function entities(state = {}, action) {
     case RECEIVE_DECKS: {
       return {
         ...state,
-        ...action.decks,
+        ...normalizeEntities(action.decks),
       };
     }
 
@@ -82,6 +82,7 @@ function entity(state = {}, action) {
 export function receiveDecks(decks) {
   return {
     type: RECEIVE_DECKS,
+    decks: decks || [],
   };
 }
 
@@ -117,6 +118,7 @@ export function commitDeckForm() {
     dispatch(setDeckFormTitle(''));
     dispatch(setDeckFormTitleError(''));
     dispatch(createDeck(formData.title));
+    persistAppState(getState, dispatch);
     return true;
   };
 }
@@ -147,4 +149,8 @@ export function getDeckById(state, id) {
 
 export function getDeckByTitle(state, title) {
   return getAllDecks(state).find(deck => deck.title.toLowerCase() === title.toLowerCase()) || null;
+}
+
+export function compareDecks(stateA, stateB) {
+  return stateA.decks.entities === stateB.decks.entities;
 }

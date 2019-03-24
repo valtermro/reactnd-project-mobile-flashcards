@@ -1,6 +1,7 @@
 import uuid from 'uuid';
 import { combineReducers } from 'redux';
 import { validateCardQuestion, validateCardAnswer } from '../lib/validation';
+import { normalizeEntities, persistAppState } from '../lib/util';
 import {
   CREATE_CARD,
   RECEIVE_CARDS,
@@ -53,17 +54,17 @@ function form(
 
 function entities(state = {}, action) {
   switch (action.type) {
-    case RECEIVE_CARDS: {
-      return {
-        ...state,
-        ...action.cards,
-      };
-    }
-
     case CREATE_CARD: {
       return {
         ...state,
         [action.card.id]: action.card,
+      };
+    }
+
+    case RECEIVE_CARDS: {
+      return {
+        ...state,
+        ...normalizeEntities(action.cards),
       };
     }
 
@@ -77,7 +78,7 @@ function entities(state = {}, action) {
 export function receiveCards(cards) {
   return {
     type: RECEIVE_CARDS,
-    cards: cards,
+    cards: cards || [],
   };
 }
 
@@ -139,6 +140,7 @@ export function commitCardForm(deckId) {
     dispatch(setCardFormAnswer(''));
     dispatch(setCardFormAnswerError(''));
     dispatch(createCard(deckId, formData.question, formData.answer));
+    persistAppState(getState, dispatch);
     return true;
   };
 }
@@ -169,4 +171,8 @@ export function getCardsByDeck(state, deckId) {
 
 function getCardByQuestion(state, question) {
   return getAllCards(state).find(card => card.question.toLowerCase() === question.toLowerCase()) || null;
+}
+
+export function compareCards(stateA, stateB) {
+  return stateA.cards.entities === stateB.cards.entities;
 }

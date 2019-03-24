@@ -71,12 +71,12 @@ class Deck extends React.Component {
         <View style={styles.actions}>
           {deck.cardCount > 0 && (
             <ActionButton style={styles.startQuizButton} onPress={this.startQuiz}>
-              <Text>Start quiz</Text>
+              Start quiz
             </ActionButton>
           )}
 
           <ActionButton style={styles.addCardButton} onPress={this.addCard}>
-            <Text>Add card</Text>
+            Add card
           </ActionButton>
         </View>
       </View>

@@ -1,13 +1,12 @@
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+import { AsyncStorage } from 'react-native';
+
+const key = '@udacity-reactnd/projects/UdaciCards@';
 
 export async function readAppState() {
-  await delay(2000);
+  const data = await AsyncStorage.getItem(key);
+  return JSON.parse(data) || {};
+}
 
-  return {
-    decks: {},
-
-    cards: {},
-  };
+export function mergeAppState(state) {
+  return AsyncStorage.mergeItem(key, JSON.stringify(state));
 }
