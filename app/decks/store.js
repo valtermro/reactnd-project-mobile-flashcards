@@ -107,31 +107,33 @@ export function commitDeckForm() {
 
     if (!validateDeckTitle(formData.title)) {
       dispatch(setDeckFormTitleError('Invalid title'));
-      return false;
+      return null;
     }
 
     if (getDeckByTitle(state, formData.title)) {
       dispatch(setDeckFormTitleError('There is already a deck with this title'));
-      return false;
+      return null;
     }
 
+    const deck = dispatch(createDeck(formData.title));
     dispatch(setDeckFormTitle(''));
     dispatch(setDeckFormTitleError(''));
-    dispatch(createDeck(formData.title));
     persistAppState(getState, dispatch);
-    return true;
+    return deck;
   };
 }
 
 function createDeck(title) {
-  return {
-    type: CREATE_DECK,
-    deck: {
+  // Leveraging redux-thunk so the deck' data is returned (instead of the action)
+  return function (dispatch) {
+    const deck = {
       id: uuid(),
       createdAt: Date.now(),
       title: title,
       cardCount: 0,
-    },
+    };
+    dispatch({ type: CREATE_DECK, deck: deck });
+    return deck;
   };
 }
 

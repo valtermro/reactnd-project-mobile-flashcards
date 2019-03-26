@@ -63,8 +63,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, props) {
   return {
     onSubmit: () => {
-      if (dispatch(commitDeckForm())) {
-        props.navigation.navigate('DeckList');
+      const deck = dispatch(commitDeckForm());
+      if (deck) {
+        props.navigation.navigate('Deck', { deck: deck.id });
       }
     },
     onTitleChange: (title) => {
