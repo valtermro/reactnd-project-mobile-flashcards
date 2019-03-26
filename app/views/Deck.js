@@ -41,9 +41,16 @@ const styles = StyleSheet.create({
 
 class Deck extends React.Component {
   static navigationOptions = (props) => {
+    const deckTitle = props.navigation.getParam('deckTitle');
     return {
-      headerBackTitle: trimHeaderTitle(props.navigation.getParam('backButtonTitle')),
+      headerBackTitle: trimHeaderTitle(deckTitle || ''),
     };
+  }
+
+  componentDidMount = () => {
+    this.props.navigation.setParams({
+      deckTitle: this.props.deck.title,
+    });
   }
 
   startQuiz = () => {

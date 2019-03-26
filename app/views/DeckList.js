@@ -48,12 +48,7 @@ class DeckList extends React.Component {
   }
 
   openDeck = (deck) => {
-    this.props.navigation.navigate('Deck', {
-      // NOTE: Do not pass the entire deck as the Deck view is expected to get the
-      // deck data from the redux store and passing the deck here could cause confusion.
-      deck: deck.id,
-      backButtonTitle: deck.title,
-    });
+    this.props.navigation.navigate('Deck', { deck: deck.id });
   }
 
   render = () => {

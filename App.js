@@ -82,9 +82,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <StatusBar style={{ backgroundColor: colors.primary }} />
-
         <AppContainer />
-
         <NotificationDisplay />
       </Provider>
     );
