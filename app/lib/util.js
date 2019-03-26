@@ -39,3 +39,10 @@ export async function persistAppState(getState, storeDispatch) {
     ));
   }
 }
+
+export function parseScoreValue(number, digits) {
+  if (number === Number.parseInt(number)) {
+    return number;
+  }
+  return Number.parseFloat(number.toFixed(digits));
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import * as colors from '../colors';
+import { parseScoreValue } from '../lib/util';
 import Card from '../cards/Card';
 import { getCardsByDeck } from '../cards/store';
 import ActionButton from '../components/ActionButton';
@@ -90,7 +91,7 @@ class Quiz extends React.Component {
         </Text>
 
         <Text style={styles.resultScore}>
-          {correctAnswerCount / cardCount * 100}%
+          {parseScoreValue(correctAnswerCount / cardCount * 100, 2)}%
         </Text>
 
         {correctAnswerCount === cardCount && (
