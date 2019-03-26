@@ -150,6 +150,7 @@ function createCard(deckId, question, answer) {
     type: CREATE_CARD,
     card: {
       id: uuid(),
+      createdAt: Date.now(),
       deck: deckId,
       question: question,
       answer: answer,
@@ -162,7 +163,8 @@ export function getCardFormData(state) {
 }
 
 export function getAllCards(state) {
-  return Object.values(state.cards.entities);
+  return Object.values(state.cards.entities).sort((a, b) => a.createdAt - b.createdAt);
+
 }
 
 export function getCardsByDeck(state, deckId) {

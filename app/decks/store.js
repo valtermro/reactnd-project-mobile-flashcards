@@ -128,6 +128,7 @@ function createDeck(title) {
     type: CREATE_DECK,
     deck: {
       id: uuid(),
+      createdAt: Date.now(),
       title: title,
       cardCount: 0,
     },
@@ -136,7 +137,7 @@ function createDeck(title) {
 
 
 export function getAllDecks(state) {
-  return Object.values(state.decks.entities);
+  return Object.values(state.decks.entities).sort((a, b) => a.createdAt - b.createdAt);
 }
 
 export function getDeckFormData(state) {
