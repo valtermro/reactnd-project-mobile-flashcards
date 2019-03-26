@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import * as colors from '../colors';
 import { parseScoreValue } from '../lib/util';
+import { rescheduleLocalNotification } from '../lib/notification';
 import Card from '../cards/Card';
 import { getCardsByDeck } from '../cards/store';
 import ActionButton from '../components/ActionButton';
@@ -89,35 +90,37 @@ class Quiz extends React.Component {
     const { currentCardIndex, correctAnswerCount } = this.state;
     const cardCount = cards.length;
 
-    return currentCardIndex >= cardCount ? (
-      // Quiz completed. Display the results.
-      //
-      <View style={styles.container}>
-        <Text style={styles.resultHeader}>
-          Your score is:
-        </Text>
+    if (currentCardIndex >= cardCount) {
+      rescheduleLocalNotification();
 
-        <Text style={styles.resultScore}>
-          {parseScoreValue(correctAnswerCount / cardCount * 100, 2)}%
-        </Text>
-
-        {correctAnswerCount === cardCount && (
-          <Text style={styles.perfectScoreMessage}>
-            Congratulations!
+      return (
+        <View style={styles.container}>
+          <Text style={styles.resultHeader}>
+            Your score is:
           </Text>
-        )}
 
-        <ActionButton style={styles.backToDeckButton} onPress={this.backToDeck}>
-          Back to deck
-        </ActionButton>
+          <Text style={styles.resultScore}>
+            {parseScoreValue(correctAnswerCount / cardCount * 100, 2)}%
+          </Text>
 
-        <ActionButton style={styles.restartButton} onPress={this.restart}>
-          Restart quiz
-        </ActionButton>
-      </View>
-    ) : (
-      // Display the next question.
-      //
+          {correctAnswerCount === cardCount && (
+            <Text style={styles.perfectScoreMessage}>
+              Congratulations!
+            </Text>
+          )}
+
+          <ActionButton style={styles.backToDeckButton} onPress={this.backToDeck}>
+            Back to deck
+          </ActionButton>
+
+          <ActionButton style={styles.restartButton} onPress={this.restart}>
+            Restart quiz
+          </ActionButton>
+        </View>
+      );
+    }
+
+    return (
       <View style={styles.container}>
         <Text style={styles.questionHeader}>
           Question {String(currentCardIndex + 1).padStart('0', String(cardCount).length)}

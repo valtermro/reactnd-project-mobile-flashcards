@@ -1,7 +1,8 @@
 import React from 'react';
 import { createAppContainer, createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
-import { Provider, createStore, loadAppState } from './app/store';
 import * as colors from './app/colors';
+import { Provider, createStore, loadAppState } from './app/store';
+import { setupLocalNotification } from './app/lib/notification';
 
 import StatusBar from './app/components/StatusBar';
 import NotificationDisplay from './app/components/NotificationDisplay';
@@ -75,6 +76,7 @@ const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
   componentDidMount = async () => {
+    setupLocalNotification();
     store.dispatch(loadAppState());
   }
 
