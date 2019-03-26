@@ -13,7 +13,7 @@ Project developed for android only (tested on Android Oreo 8.0.0).
 Installation/Development
 ------------------------
 
-*NOTE: npm can be used in place of yarn for*
+*NOTE: npm can be used in place of yarn*
 
 To run the app locally:
 1. Install the project dependencies with `yarn install`.
