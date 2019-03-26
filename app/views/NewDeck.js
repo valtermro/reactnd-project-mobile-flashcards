@@ -25,38 +25,32 @@ const styles = StyleSheet.create({
   },
 });
 
-class NewDeck extends React.Component {
-  onTitleChange = (title) => {
-    this.props.onTitleChange(title);
-  }
+function NewDeck(props) {
+  const { formData, onSubmit, onTitleChange } = props;
+  const { title, titleError } = formData;
 
-  render = () => {
-    const { formData, onSubmit } = this.props;
-    const { title, titleError } = formData;
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>
+        What are you going to learn now?
+      </Text>
 
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header}>
-          What are you going to learn now?
-        </Text>
-
-        <View style={styles.formGroup}>
-          <TextInput
-            value={title}
-            onChangeText={this.onTitleChange}
-            placeholder='e.g. Javascript'
-          />
-          {!!titleError && (
-            <InputErrorMessage>{titleError}</InputErrorMessage>
-          )}
-        </View>
-
-        <ActionButton style={styles.submitButton} onPress={onSubmit}>
-          Create deck
-        </ActionButton>
+      <View style={styles.formGroup}>
+        <TextInput
+          value={title}
+          onChangeText={onTitleChange}
+          placeholder='e.g. Javascript'
+        />
+        {!!titleError && (
+          <InputErrorMessage>{titleError}</InputErrorMessage>
+        )}
       </View>
-    );
-  }
+
+      <ActionButton style={styles.submitButton} onPress={onSubmit}>
+        Create deck
+      </ActionButton>
+    </View>
+  );
 }
 
 

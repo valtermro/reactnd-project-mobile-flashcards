@@ -30,47 +30,45 @@ const styles = StyleSheet.create({
   },
 });
 
-class NewCard extends React.Component {
-  render = () => {
-    const { formData, onQuestionChange, onAnswerChange, onSubmit } = this.props;
-    const { question, answer, questionError, answerError } = formData;
+function NewCard(props) {
+  const { formData, onQuestionChange, onAnswerChange, onSubmit } = props;
+  const { question, answer, questionError, answerError } = formData;
 
-    return (
-      <View style={styles.container}>
-        <View style={styles.formGroup}>
-          <Text style={styles.inputLabel}>
-            First, the question:
-          </Text>
-          <TextInput
-            value={question}
-            onChangeText={onQuestionChange}
-            placeholder="e.g. What's the answer to the universe?"
-          />
-          {!!questionError && (
-            <InputErrorMessage>{questionError}</InputErrorMessage>
-          )}
-        </View>
-
-        <View style={styles.formGroup}>
-          <Text style={styles.inputLabel}>
-            The the answer:
-          </Text>
-          <TextInput
-            placeholder='e.g. 42'
-            value={answer}
-            onChangeText={onAnswerChange}
-          />
-          {!!answerError && (
-            <InputErrorMessage>{answerError}</InputErrorMessage>
-          )}
-        </View>
-
-        <ActionButton style={styles.submitButton} onPress={onSubmit}>
-          Create card
-        </ActionButton>
+  return (
+    <View style={styles.container}>
+      <View style={styles.formGroup}>
+        <Text style={styles.inputLabel}>
+          First, the question:
+        </Text>
+        <TextInput
+          value={question}
+          onChangeText={onQuestionChange}
+          placeholder="e.g. What's the answer to the universe?"
+        />
+        {!!questionError && (
+          <InputErrorMessage>{questionError}</InputErrorMessage>
+        )}
       </View>
-    );
-  }
+
+      <View style={styles.formGroup}>
+        <Text style={styles.inputLabel}>
+          The the answer:
+        </Text>
+        <TextInput
+          placeholder='e.g. 42'
+          value={answer}
+          onChangeText={onAnswerChange}
+        />
+        {!!answerError && (
+          <InputErrorMessage>{answerError}</InputErrorMessage>
+        )}
+      </View>
+
+      <ActionButton style={styles.submitButton} onPress={onSubmit}>
+        Create card
+      </ActionButton>
+    </View>
+  );
 }
 
 
