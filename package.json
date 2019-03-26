@@ -22,8 +22,7 @@
     "babel-preset-expo": "^5.0.0",
     "eslint": "^5.15.3",
     "eslint-plugin-react": "^7.12.4",
-    "expo-cli": "^2.13.0",
-    "redux-logger": "^3.0.6"
+    "expo-cli": "^2.13.0"
   },
   "private": true
 }

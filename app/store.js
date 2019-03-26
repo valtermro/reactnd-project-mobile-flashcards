@@ -1,6 +1,5 @@
 import { combineReducers, applyMiddleware, createStore as reduxCreateStore } from 'redux';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
 import { readAppState } from './lib/storage';
 import { reducer as cards, receiveCards } from './cards/store';
 import { reducer as decks, receiveDecks } from './decks/store';
@@ -15,7 +14,7 @@ export function createStore() {
       cards: cards,
       decks: decks,
     }),
-    applyMiddleware(thunk, logger)
+    applyMiddleware(thunk)
   );
 }
 
