@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingLeft: 8,
     paddingRight: 8,
-    marginRight: -8,
   },
   closeIcon: {
     color: colors.white,
+    width: 30,
   },
   body: {
     alignItems: 'center',
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
   },
   actionButtonText: {
     color: colors.textDefault,
-    fontSize: 13,
   },
 });
 
@@ -64,7 +63,11 @@ function NotificationDisplay(props) {
           activeOpacity={0.6}
           onPress={close}
         >
-          <Ionicons name='md-close' color={styles.closeIcon.color} />
+          <Ionicons
+            name='md-close'
+            color={styles.closeIcon.color}
+            size={styles.closeIcon.width}
+          />
         </TouchableOpacity>
       </View>
 

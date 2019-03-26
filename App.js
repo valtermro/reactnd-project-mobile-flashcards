@@ -35,6 +35,7 @@ const HomeNavigator = createMaterialTopTabNavigator({
     },
     style: {
       backgroundColor: colors.primary,
+      justifyContent: 'center',
       height: 60,
     },
   },
