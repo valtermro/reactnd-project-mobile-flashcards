@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, KeyboardAvoidingView, Text, StyleSheet } from 'react-native';
 import * as colors from '../colors';
 import { getDeckFormData, commitDeckForm, setDeckFormTitle, setDeckFormTitleError } from '../decks/store';
 import TextInput from '../components/TextInput';
@@ -30,7 +30,7 @@ function NewDeck(props) {
   const { title, titleError } = formData;
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <Text style={styles.header}>
         What are you going to learn now?
       </Text>
@@ -49,7 +49,7 @@ function NewDeck(props) {
       <ActionButton style={styles.submitButton} onPress={onSubmit}>
         Create deck
       </ActionButton>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, KeyboardAvoidingView, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import * as colors from '../colors';
 import {
@@ -35,7 +35,7 @@ function NewCard(props) {
   const { question, answer, questionError, answerError } = formData;
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <View style={styles.formGroup}>
         <Text style={styles.inputLabel}>
           First, the question:
@@ -67,7 +67,7 @@ function NewCard(props) {
       <ActionButton style={styles.submitButton} onPress={onSubmit}>
         Create card
       </ActionButton>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
