@@ -49,22 +49,25 @@ const styles = StyleSheet.create({
     fontSize: 28,
     marginTop: 20,
   },
-  resultBackButton: {
+  backToDeckButton: {
     marginTop: 40,
+    backgroundColor: colors.primary,
+  },
+  restartButton: {
+    marginTop: 10,
+    backgroundColor: colors.error,
   },
 });
 
-function mapStateToProps(state, props) {
-  return {
-    cards: getCardsByDeck(state, props.navigation.getParam('deck')),
-  };
-}
-
 class Quiz extends React.Component {
-  state = {
-    currentCardIndex: 0,
-    correctAnswerCount: 0,
+  initialState = () => {
+    return {
+      currentCardIndex: 0,
+      correctAnswerCount: 0,
+    };
   }
+
+  state = this.initialState()
 
   next = (result) => {
     this.setState((state) => ({
@@ -73,8 +76,12 @@ class Quiz extends React.Component {
     }));
   }
 
-  backToDecks = () => {
-    this.props.navigation.navigate('DeckList');
+  restart = () => {
+    this.setState(this.initialState());
+  }
+
+  backToDeck = () => {
+    this.props.navigation.navigate('Deck', { deck: this.props.deck });
   }
 
   render = () => {
@@ -100,8 +107,12 @@ class Quiz extends React.Component {
           </Text>
         )}
 
-        <ActionButton style={styles.resultBackButton} onPress={this.backToDecks}>
-          Back to decks
+        <ActionButton style={styles.backToDeckButton} onPress={this.backToDeck}>
+          Back to deck
+        </ActionButton>
+
+        <ActionButton style={styles.restartButton} onPress={this.restart}>
+          Restart quiz
         </ActionButton>
       </View>
     ) : (
@@ -140,6 +151,16 @@ class Quiz extends React.Component {
       </View>
     );
   }
+}
+
+
+function mapStateToProps(state, props) {
+  const deck = props.navigation.getParam('deck');
+
+  return {
+    deck: deck,
+    cards: getCardsByDeck(state, deck),
+  };
 }
 
 export default connect(mapStateToProps)(Quiz);
